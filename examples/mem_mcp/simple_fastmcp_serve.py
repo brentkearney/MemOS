@@ -23,7 +23,7 @@ def add_memory(memory_content: str, user_id: str, cube_id: str | None = None):
     """Add memory using the Server API."""
     payload = {
         "user_id": user_id,
-        "messages": memory_content,
+        "messages": [{"role": "user", "content": memory_content}],
         "writable_cube_ids": [cube_id] if cube_id else None,
     }
     try:
@@ -37,7 +37,7 @@ def add_memory(memory_content: str, user_id: str, cube_id: str | None = None):
 @mcp.tool()
 def search_memories(query: str, user_id: str, cube_ids: str | None = None):
     """Search memories using the Server API."""
-    payload = {"query": query, "user_id": user_id, "readable_cube_ids": cube_ids}
+    payload = {"query": query, "user_id": user_id, "readable_cube_ids": cube_ids, "relativity": 0}
     try:
         resp = requests.post(f"{API_BASE_URL}/search", json=payload)
         resp.raise_for_status()

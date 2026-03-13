@@ -244,6 +244,10 @@ Full tutorial → [MemOS-Cloud-OpenClaw-Plugin](https://github.com/MemTensor/Mem
 
 
 
+### MCP Integration (Claude, Obsidian, etc.)
+
+MemOS includes an MCP server that connects to Claude Code, Claude Desktop, Claudian (Obsidian), and other MCP-compatible AI tools. See **[examples/mem_mcp/README.md](examples/mem_mcp/README.md)** for setup instructions.
+
 ### Basic Usage (Self-Hosted)
   - Add User Message
     ```python

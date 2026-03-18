@@ -13,9 +13,11 @@ services:
     depends_on:
       - neo4j
       - qdrant
+    pids_limit: 256
     environment:
       - PYTHONPATH=/app/src
       - HF_ENDPOINT=https://hf-mirror.com
+      - OPENBLAS_NUM_THREADS=1
       - QDRANT_HOST=qdrant-docker
       - QDRANT_PORT=6333
       - NEO4J_URI=bolt://neo4j-docker:7687

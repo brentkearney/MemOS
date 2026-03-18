@@ -1,7 +1,7 @@
 import copy
 import traceback
 
-from concurrent.futures import as_completed
+from concurrent.futures import TimeoutError, as_completed
 
 from memos.context.context import ContextThreadPoolExecutor
 from memos.embedders.factory import OllamaEmbedder
@@ -462,7 +462,12 @@ class Searcher:
                 )
             results = []
             for t in tasks:
-                results.extend(t.result())
+                try:
+                    results.extend(t.result(timeout=30))
+                except TimeoutError:
+                    logger.warning("Retrieval path timed out, skipping")
+                except Exception as e:
+                    logger.warning(f"Retrieval path failed: {e}")
 
         logger.info(f"[SEARCH] Total raw results: {len(results)}")
         return results
